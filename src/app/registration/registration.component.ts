@@ -27,7 +27,11 @@ export class RegistrationComponent {
   passwordMatchValidator(group: FormGroup): any {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { passwordMismatch: true };
+    if (password === confirmPassword) {
+      return null;
+    } else {
+      return { passwordMismatch : true };
+    }
   }
 
   onSubmit() {
