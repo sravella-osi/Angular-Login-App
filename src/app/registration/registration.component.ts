@@ -19,8 +19,8 @@ export class RegistrationComponent {
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', [Validators.required]],
-      },
-      { validators: this.passwordMatchValidator }
+      }
+      , { validators: this.passwordMatchValidator }
     );
   }
 
@@ -28,9 +28,9 @@ export class RegistrationComponent {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     if (password === confirmPassword) {
-      return null;
+      return group.get('confirmPassword')?.setErrors(null);
     } else {
-      return { passwordMismatch : true };
+      return group.get('confirmPassword')?.setErrors({ passwordMismatch : true });
     }
   }
 
