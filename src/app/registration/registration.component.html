@@ -1,1 +1,36 @@
 <p>registration works!</p>
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label>Username</label>
+        <input formControlName="username" />
+        <div *ngIf="registrationForm.controls['username'].invalid && registrationForm.controls['username'].touched">
+          Username is required.
+        </div>
+    </div>
+  
+    <div>
+        <label>Email</label>
+        <input formControlName="email" />
+        <div *ngIf="registrationForm.controls['email'].invalid && registrationForm.controls['email'].touched">
+          Email is required and must be valid.
+        </div>
+    </div>
+  
+    <div>
+        <label>Password</label>
+        <input type="password" formControlName="password" />
+        <div *ngIf="registrationForm.controls['password'].invalid && registrationForm.controls['password'].touched">
+          Password is required and must be at least 8 characters.
+        </div>
+    </div>
+  
+    <div>
+        <label>Confirm Password</label>
+        <input type="password" formControlName="confirmPassword" />
+        <div *ngIf="registrationForm.hasError('passwordMismatch')">
+          Passwords must match.
+        </div>
+    </div>
+
+    <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+</form>  
