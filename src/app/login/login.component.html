@@ -9,15 +9,6 @@
             <div *ngIf="loginForm.controls['email'].errors['email']">Email is invalid.</div>
         </div>
     </div>
-
-    <div>
-        <label>Username</label>
-        <input formControlName="username" />
-        <div *ngIf="loginForm.controls['username'].errors && loginForm.controls['username'].touched">
-            <div *ngIf="loginForm.controls['username'].errors['required']">Username is required</div>
-            <div *ngIf="loginForm.controls['username'].errors['minlength']">Username must be atleast 5 characters</div>            
-        </div>
-    </div>
     
     <div>
         <label>Password</label>

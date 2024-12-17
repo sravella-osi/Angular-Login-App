@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthenticationService } from '../service/authentication.service';
+import { User } from '../service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -12,7 +15,12 @@ import { CommonModule } from '@angular/common';
 export class RegistrationComponent {
   registrationForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService : AuthenticationService,
+    private user : User,
+    private router : Router
+  ) {
     this.registrationForm = this.fb.group(
       {
         username: ['', Validators.required],
@@ -36,7 +44,18 @@ export class RegistrationComponent {
 
   onSubmit() {
     if (this.registrationForm.valid) {
-      console.log(this.registrationForm.value);
+      if (this.registrationForm.valid) {
+        const v_email = this.registrationForm.value.email;
+        const username = this.registrationForm.value.username;
+        const v_password = this.registrationForm.value.password;
+        this.user?.setEmail(v_email);
+        this.user?.setPassword(v_password);
+        this.user?.setUsername(username);
+
+        this.authService.registerUser(this.user);
+        this.authService.setUsername(username);
+        this.router.navigate(['/login']);
+      }
     }
   }
 }
