@@ -4,16 +4,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class User {
-  private username : string | null = null ;
-  private email : string | null = null;
-  private password : string | null = null;
+  private username : string = "";
+  private email : string = "";
+  private password : string = "";
   private logged : boolean = false;
 
   setUsername(name: string): void {
     this.username = name;
   }
 
-  getUsername(): string | null {
+  getUsername(): string {
     return this.username;
   }
 
@@ -21,7 +21,7 @@ export class User {
     this.email = email;
   }
 
-  getEmail(): string | null {
+  getEmail(): string {
     return this.email;
   }
   
@@ -29,7 +29,7 @@ export class User {
     this.password = password;
   }
 
-  getPassword(): string | null {
+  getPassword(): string {
     return this.password;
   }
 

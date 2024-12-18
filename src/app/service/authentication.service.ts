@@ -8,7 +8,6 @@ import { User } from './user.service';
 export class AuthenticationService {
   private registeredUsers : User[] = [];
   private loggedUsers : User[] = [];
-  private username: string | null = null;
   private currentUser = new User;
 
   registerUser(user : User){
@@ -21,23 +20,19 @@ export class AuthenticationService {
   }
 
     validateUser(v_user : User): boolean {
-      const check = this.registeredUsers?.find( user => user.getEmail() === v_user.getEmail() &&  user.getPassword() === v_user.getPassword() );
-      
-      if (typeof check === "undefined" ) {
-        console.log("Unauthorised User. Please register to login.");
-        return false;
+
+      for(const tmp of this.registeredUsers ) {
+        if(tmp.getEmail() === v_user.getEmail() &&  tmp.getPassword() === v_user.getPassword()) {
+          console.log(tmp);
+          v_user.setUsername(tmp.getUsername());
+          console.log(v_user);
+          return true;
+        }
       }
-      v_user = check;
-      return true;
+      
+      console.log("Unauthorised User. Please register to login.");
+      return false;
     }
-
-  setUsername(name: string): void {
-    this.username = name;
-  }
-
-  getUsername(): string | null {
-    return this.username;
-  }
 
   getCurrentUser(): User {
     return this?.currentUser;

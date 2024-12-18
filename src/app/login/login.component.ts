@@ -17,8 +17,7 @@ export class LoginComponent {
   constructor(
     private fb : FormBuilder,
     private authService : AuthenticationService,
-    private router : Router,
-    private user : User
+    private router : Router
   ){
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -29,18 +28,16 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       if (this.loginForm.valid) {
+        const user = new User;
         const v_email = this.loginForm.value.email;
-        const username = this.loginForm.value.username;
         const v_password = this.loginForm.value.password;
 
-        this.user?.setEmail(v_email);
-        this.user?.setPassword(v_password);
-        console.log(this.authService);
-        console.log(this.user);
-        const valid = this.authService.validateUser(this.user);
-        console.log(this.user);
+        user?.setEmail(v_email);
+        user?.setPassword(v_password);
+        const valid = this.authService.validateUser(user);
+        console.log(user);
         if (valid) {
-          this.authService.logInUser(this.user);
+          this.authService.logInUser(user);
           console.log(this.authService);
           this.router.navigate(['/home']);
         }

@@ -14,11 +14,11 @@ import { Router } from '@angular/router';
 
 export class RegistrationComponent {
   registrationForm: FormGroup;
+  
 
   constructor(
     private fb: FormBuilder,
     private authService : AuthenticationService,
-    private user : User,
     private router : Router
   ) {
     this.registrationForm = this.fb.group(
@@ -45,16 +45,17 @@ export class RegistrationComponent {
   onSubmit() {
     if (this.registrationForm.valid) {
       if (this.registrationForm.valid) {
+        const user = new User;
         const v_email = this.registrationForm.value.email;
         const username = this.registrationForm.value.username;
         const v_password = this.registrationForm.value.password;
-        this.user?.setEmail(v_email);
-        this.user?.setPassword(v_password);
-        this.user?.setUsername(username);
+        user?.setEmail(v_email);
+        user?.setPassword(v_password);
+        user?.setUsername(username);
 
-        this.authService.registerUser(this.user);
-        this.authService.setUsername(username);
-        this.router.navigate(['/login']);
+        this.authService.registerUser(user);
+        console.log(this.authService);
+        this.registrationForm.reset();
       }
     }
   }
